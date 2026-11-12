@@ -25,11 +25,14 @@ with the separately deployed server, whose fixtures are deliberately excluded
 from this client repository. They ran against Company Brain 0.2.1, source
 revision `f37e81d`.
 
-`uv sync --locked` could not complete because downloading the pinned build
-dependency failed. Wheel build/install and the generated `brain` console entry
-point therefore remain unverified. No dependency was installed. The tested
-distribution is the standard-library-only `dist/brain.pyz`; rebuilding it does
-not require any registry access. See [dependency provenance](dependencies.json).
+During initial extraction, `uv sync --locked` could not download the pinned
+build dependency. This blocker was resolved during v0.1.0 release preparation:
+`uv build --no-sources` built wheel and source distributions with the verified
+setuptools 84.1.0. The wheel was installed using `uv pip install --no-index
+--no-deps` into a fresh virtual environment inside this checkout. Its installed
+`brain` entry point passed version/help checks and all 5 real API/MCP/Docker
+integration tests. The 14 standalone tests also passed again. See
+[release logs](logs/) and [dependency provenance](dependencies.json).
 
 This repository starts with a fresh git history. Its selected source files,
 tests, documentation and lockfile exclude server data, credential files and the
@@ -38,4 +41,5 @@ source repository's history.
 Publication follow-up: on 2026-11-12 the independent repository was pushed to
 [mitrofanov-m/company-brain-cli](https://github.com/mitrofanov-m/company-brain-cli),
 with local `main` tracking `origin/main`. The earlier publication blocker has
-been resolved; the package-install verification limitation above remains.
+been resolved. Release assets and instructions are described in
+[v0.1.0](releases/v0.1.0.md).

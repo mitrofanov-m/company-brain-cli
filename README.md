@@ -3,6 +3,22 @@
 Standalone Python client for a Company Brain HTTP API. Requires Python 3.11 or
 later; no runtime dependencies. The server is deployed separately.
 
+Download the first release from
+[GitHub Releases](https://github.com/mitrofanov-m/company-brain-cli/releases/tag/v0.1.0).
+Use `python3 brain-0.1.0.pyz --help` for the portable client. For the wheel:
+
+```sh
+mkdir -p .tmp
+export TMPDIR="$PWD/.tmp"
+export UV_CACHE_DIR="$PWD/.tmp/uv-cache"
+export UV_PYTHON_DOWNLOADS=never
+uv venv --no-managed-python --python python3 .venv
+uv pip install --python .venv/bin/python --no-index ./company_brain_cli-0.1.0-py3-none-any.whl
+.venv/bin/brain --version
+```
+
+`SHA256SUMS` accompanies the release downloads. The wheel has no dependencies.
+
 ## Run without installing
 
 From this checkout:

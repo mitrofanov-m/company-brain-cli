@@ -1,0 +1,8 @@
+Using CPython 3.14.7 interpreter at: /opt/homebrew/opt/python@3.14/bin/python3.14
+Creating virtual environment at: .tmp/release-venv
+Activate with: source .tmp/release-venv/bin/activate
+Using Python 3.14.7 environment at: .tmp/release-venv
+Resolved 1 package in 11ms
+Prepared 1 package in 6ms
+Installed 1 package in 154ms
+ + company-brain-cli==0.1.0 (from file://<workspace>/public/company-brain-cli/dist/v0.1.0/company_brain_cli-0.1.0-py3-none-any.whl)

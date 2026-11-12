@@ -1,0 +1,11 @@
+include README.md AGENTS.md CHANGELOG.md uv.lock
+recursive-include docs *.md *.json *.log
+recursive-include scripts *.py *.sh
+recursive-include tests *.py
+global-exclude *.py[cod]
+prune .tmp
+prune .test-tmp
+prune .venv
+prune .brain
+prune dist
+prune build

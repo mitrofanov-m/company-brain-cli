@@ -1,0 +1,23 @@
+Resolved 1 package in 9ms
+test_api_error_does_not_print_key_or_traceback (test_cli.ClientTests.test_api_error_does_not_print_key_or_traceback) ... ok
+test_api_origin_validation_and_segment_encoding (test_cli.ClientTests.test_api_origin_validation_and_segment_encoding) ... ok
+test_config_cannot_escape_working_directory_or_follow_file_symlink (test_cli.ClientTests.test_config_cannot_escape_working_directory_or_follow_file_symlink) ... ok
+test_environment_overrides_saved_context_and_flags_override_environment (test_cli.ClientTests.test_environment_overrides_saved_context_and_flags_override_environment) ... ok
+test_file_input_and_remote_script_exit_status (test_cli.ClientTests.test_file_input_and_remote_script_exit_status) ... ok
+test_guest_does_not_reuse_saved_private_session (test_cli.ClientTests.test_guest_does_not_reuse_saved_private_session) ... ok
+test_invalid_json_arguments_and_usage_are_nonzero (test_cli.ClientTests.test_invalid_json_arguments_and_usage_are_nonzero) ... ok
+test_login_prompt_stores_key_privately (test_cli.ClientTests.test_login_prompt_stores_key_privately) ... ok
+test_redirect_does_not_forward_credentials (test_cli.ClientTests.test_redirect_does_not_forward_credentials) ... ok
+test_session_write_commit_resume_close_and_private_config (test_cli.ClientTests.test_session_write_commit_resume_close_and_private_config) ... ok
+test_tools_discovery_detail_call_and_help (test_cli.ClientTests.test_tools_discovery_detail_call_and_help) ... ok
+test_version_and_help_work_without_server (test_cli.ClientTests.test_version_and_help_work_without_server) ... ok
+test_workspace_list_tree_binary_read_search_and_history (test_cli.ClientTests.test_workspace_list_tree_binary_read_search_and_history) ... ok
+test_workspace_mismatch_rejected_before_write (test_cli.ClientTests.test_workspace_mismatch_rejected_before_write) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.897s
+
+OK
+Built dist/brain.pyz
+brain 0.1.0
+brain 0.1.0
