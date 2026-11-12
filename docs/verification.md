@@ -33,5 +33,9 @@ not require any registry access. See [dependency provenance](dependencies.json).
 
 This repository starts with a fresh git history. Its selected source files,
 tests, documentation and lockfile exclude server data, credential files and the
-source repository's history. No public GitHub repository was created during
-this extraction because creation/authenticated publication was unavailable.
+source repository's history.
+
+Publication follow-up: on 2026-11-12 the independent repository was pushed to
+[mitrofanov-m/company-brain-cli](https://github.com/mitrofanov-m/company-brain-cli),
+with local `main` tracking `origin/main`. The earlier publication blocker has
+been resolved; the package-install verification limitation above remains.
