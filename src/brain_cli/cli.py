@@ -85,6 +85,7 @@ def _parser():
     run=sub.add_parser("run");run.add_argument("script",type=Path)
     files=sub.add_parser("files");fs=files.add_subparsers(dest="files_action",required=True)
     put=fs.add_parser("write");put.add_argument("path");put.add_argument("file",type=Path,nargs="?");put.add_argument("--commit",action="store_true")
+    download=fs.add_parser("download");download.add_argument("path");download.add_argument("file",type=Path)
     delete=fs.add_parser("delete");delete.add_argument("path");delete.add_argument("--commit",action="store_true")
     tools=sub.add_parser("tools");ts=tools.add_subparsers(dest="tools_action",required=True)
     ts.add_parser("list")
@@ -154,10 +155,25 @@ def main(argv=None):
             print(json.dumps({"exit_code":result.get("exit_code"),"commit":result.get("commit")},ensure_ascii=False),file=sys.stderr)
             return 0 if result.get("exit_code")==0 else 1
         if args.command=="files":
+            if args.files_action=="download":
+                if not (sid or wid): raise ValueError("select a workspace or session")
+                # A failed download leaves no partial destination file.
+                args.file.parent.mkdir(parents=True,exist_ok=True)
+                fd,name=tempfile.mkstemp(prefix=".brain-download-",dir=args.file.parent)
+                try:
+                    with os.fdopen(fd,"wb") as output:
+                        api.download(sid or wid,args.path,output,session=bool(sid))
+                    os.replace(name,args.file)
+                finally:
+                    Path(name).unlink(missing_ok=True)
+                return 0
             if not sid: raise ValueError("file writes require an active session")
             if args.files_action=="write":
-                content=(args.file.read_text(encoding="utf-8") if args.file else sys.stdin.read())
-                result=api.session_call(sid,"files.write",{"path":args.path,"content":content})
+                if args.file:
+                    with args.file.open("rb") as source:
+                        result=api.upload(sid,args.path,source,os.fstat(source.fileno()).st_size)
+                else:
+                    result=api.session_call(sid,"files.write",{"path":args.path,"content":sys.stdin.read()})
             else:result=api.session_call(sid,"files.delete",{"path":args.path})
             if args.commit:result={"staged":result,"commit":api.request("POST",f"/v1/sessions/{api.segment(sid)}/commit",{"message":"CLI file update"})}
             print(json.dumps(result,ensure_ascii=False,indent=2));return 0

@@ -43,3 +43,20 @@ Publication follow-up: on 2026-11-12 the independent repository was pushed to
 with local `main` tracking `origin/main`. The earlier publication blocker has
 been resolved. Release assets and instructions are described in
 [v0.1.0](releases/v0.1.0.md).
+
+
+## 0.1.1 candidate — 2026-11-12
+
+17 standalone checks passed, including binary file upload, atomic verified
+download, 1 GB + 1 byte rejection and interrupted downloads. `uv lock --check`
+ran offline; the stdlib zipapp reports version 0.1.1. No dependency was installed.
+See [log](logs/large-upload-candidate.log).
+
+The platform checkout additionally tested this standalone source and zipapp
+against its candidate API: exact 1,000,000,000-byte upload, publish, download and
+SHA-256 verification, the existing five CLI/API/MCP/sandbox contracts, and a
+separate 1 GB UI proxy round trip. These are local candidate compatibility
+checks. Production deployment and public CLI release remain pending because
+production SSH requires a key outside the authorized workspace. Release this
+CLI before the corresponding platform release, then record its tag/commit in
+the platform release description.

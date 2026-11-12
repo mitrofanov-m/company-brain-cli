@@ -2,6 +2,7 @@
 import base64
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import hashlib
 import os
 from pathlib import Path
 import subprocess
@@ -9,7 +10,8 @@ import sys
 import tempfile
 import threading
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
+from http.client import IncompleteRead
 
 from brain_cli import cli
 from brain_cli.client import APIError, BrainAPIClient
@@ -23,6 +25,21 @@ class ClientTests(unittest.TestCase):
         cls.calls = []
         class Handler(BaseHTTPRequestHandler):
             def respond(self):
+                if '/upload?' in self.path:
+                    raw = self.rfile.read(int(self.headers['Content-Length']))
+                    cls.calls.append((self.command, self.path, raw, dict(self.headers)))
+                    cls.binary = raw
+                    self.send_response(200); self.end_headers()
+                    self.wfile.write(json.dumps({'blob_hash': hashlib.sha256(raw).hexdigest()}).encode())
+                    return
+                if '/download?' in self.path:
+                    raw = cls.binary
+                    cls.calls.append((self.command, self.path, None, dict(self.headers)))
+                    self.send_response(200)
+                    self.send_header('Content-Length', str(len(raw)))
+                    self.send_header('ETag', '"' + ('wrong' if 'corrupt' in self.path else hashlib.sha256(raw).hexdigest()) + '"')
+                    self.end_headers(); self.wfile.write(raw)
+                    return
                 payload = json.loads(self.rfile.read(int(self.headers.get('Content-Length', 0))) or b'{}')
                 cls.calls.append((self.command, self.path, payload, dict(self.headers)))
                 status, result = 200, {}
@@ -144,7 +161,8 @@ class ClientTests(unittest.TestCase):
         source = self.cwd / 'input.md'
         source.write_text('from disk')
         self.okay('files', 'write', 'docs/hello.md', str(source))
-        self.assertEqual(self.calls[-1][2]['arguments']['content'], 'from disk')
+        self.assertEqual(self.calls[-1][2], b'from disk')
+        self.assertEqual(self.calls[-1][1], '/v1/sessions/s/upload?path=docs%2Fhello.md')
         script = self.cwd / 'task.py'
         script.write_text('raise RuntimeError("must not run locally")')
         result = self.okay('run', str(script))
@@ -154,6 +172,47 @@ class ClientTests(unittest.TestCase):
         result = self.run_cli('run', str(script))
         self.assertEqual(result.returncode, 1)
         self.assertEqual(json.loads(result.stderr)['exit_code'], 3)
+
+    def test_binary_upload_download_and_failed_checksum_preserve_destination(self):
+        self.okay('session', 'start')
+        raw = bytes(range(256)) * 70_000
+        source = self.cwd / 'binary.bin'; source.write_bytes(raw)
+        self.okay('files', 'write', 'folder/binary.bin', str(source), '--commit')
+        upload = next(call for call in self.calls if '/upload?' in call[1])
+        self.assertEqual(upload[2], raw)
+        self.assertEqual(upload[3]['Content-Type'], 'application/octet-stream')
+        self.assertEqual(int(upload[3]['Content-Length']), len(raw))
+        output = self.cwd / 'download.bin'
+        self.okay('files', 'download', 'folder/binary.bin', str(output))
+        self.assertEqual(output.read_bytes(), raw)
+        output.write_bytes(b'keep existing destination')
+        result = self.run_cli('files', 'download', 'corrupt', str(output))
+        self.assertEqual(result.returncode, 1)
+        self.assertIn(b'checksum mismatch', result.stderr)
+        self.assertEqual(output.read_bytes(), b'keep existing destination')
+        self.assertFalse(list(self.cwd.glob('.brain-download-*')))
+
+    def test_over_one_gigabyte_rejected_without_sending_file_bytes(self):
+        self.okay('session', 'start')
+        source = self.cwd / 'oversize.bin'
+        with source.open('wb') as stream: stream.truncate(1_000_000_001)
+        self.calls.clear()
+        result = self.run_cli('files', 'write', 'too-large', str(source))
+        self.assertEqual(result.returncode, 1)
+        self.assertIn(b'exceeds 1 GB', result.stderr)
+        self.assertFalse(any('/upload?' in call[1] for call in self.calls))
+
+    def test_interrupted_download_is_a_client_error(self):
+        import io
+        response = MagicMock()
+        response.headers = {'Content-Length': '3'}
+        response.read.side_effect = IncompleteRead(b'x', 2)
+        response.__enter__.return_value = response
+        client = BrainAPIClient(self.url, 'synthetic')
+        with patch.object(client, '_transfer_open', return_value=response):
+            with self.assertRaises(APIError) as error:
+                client.download('w', 'x', io.BytesIO())
+        self.assertEqual(error.exception.status, 502)
 
     def test_workspace_mismatch_rejected_before_write(self):
         self.okay('session', 'start')

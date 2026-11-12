@@ -128,3 +128,23 @@ sh scripts/check.sh
 Tests use only the standard library and a synthetic loopback HTTP fixture. Test
 and build output stays in this checkout. Real server interoperability is checked
 separately; see [verification](docs/verification.md).
+
+## Binary files up to 1 GB (0.1.1 candidate)
+
+With a server supporting the streaming transfer API, local file arguments are
+uploaded as original binary bytes, up to **1,000,000,000 bytes inclusive**:
+
+```sh
+brain session start
+brain files write materials/deck.pptx ./deck.pptx --commit
+brain files download materials/deck.pptx ./downloaded.pptx
+```
+
+Uploads stage the file and publish only with `--commit` or `brain session commit`.
+The client streams in bounded chunks, verifies SHA-256 on download, and replaces
+an output file only after success. Existing stdin text writes keep the original
+JSON tool protocol. JSON requests still have their smaller server limits; for
+large files use the local file argument. `cat` remains the JSON resource reader.
+Binary upload/download commands require the new server endpoints and return an
+error against older servers; continue using CLI 0.1.0 with those deployments.
+The 0.1.1 candidate has not been published yet.
