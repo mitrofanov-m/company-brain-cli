@@ -1,0 +1,19 @@
+test_http_auth_is_limited_to_loopback_and_credentials_not_in_url (tests.test_cli_mcp.APIClientSafetyTests.test_http_auth_is_limited_to_loopback_and_credentials_not_in_url) ... ok
+test_redirect_never_forwards_bearer_token (tests.test_cli_mcp.APIClientSafetyTests.test_redirect_never_forwards_bearer_token) ... ok
+test_ls_cat_search_and_session_start (tests.test_cli_mcp.CLIRoutingTests.test_ls_cat_search_and_session_start) ... ok
+test_discovery_and_tools_are_standard_rpc (tests.test_cli_mcp.MCPProtocolTests.test_discovery_and_tools_are_standard_rpc) ... ok
+test_explicit_workspace_cannot_reuse_a_session_for_another_workspace (tests.test_cli_mcp.MCPProtocolTests.test_explicit_workspace_cannot_reuse_a_session_for_another_workspace) ... ok
+test_invalid_argument_types_do_not_escape_dispatch (tests.test_cli_mcp.MCPProtocolTests.test_invalid_argument_types_do_not_escape_dispatch) ... ok
+test_legacy_initialize_allows_legacy_unversioned_tool_calls (tests.test_cli_mcp.MCPProtocolTests.test_legacy_initialize_allows_legacy_unversioned_tool_calls) ... ok
+test_notifications_do_not_emit_responses_and_versions_are_checked (tests.test_cli_mcp.MCPProtocolTests.test_notifications_do_not_emit_responses_and_versions_are_checked) ... ok
+test_session_start_and_progressive_tool_discovery (tests.test_cli_mcp.MCPProtocolTests.test_session_start_and_progressive_tool_discovery) ... ok
+test_workspace_operations_and_error_shape (tests.test_cli_mcp.MCPProtocolTests.test_workspace_operations_and_error_shape) ... ok
+test_cli_explicit_workspace_does_not_write_through_another_workspaces_saved_session (tests.review.test_cli_mcp_runtime_contract.ClientRuntimeContract.test_cli_explicit_workspace_does_not_write_through_another_workspaces_saved_session) ... ok
+test_cli_readonly_principal_cannot_mutate_or_read_foreign_session (tests.review.test_cli_mcp_runtime_contract.ClientRuntimeContract.test_cli_readonly_principal_cannot_mutate_or_read_foreign_session) ... ok
+test_cli_session_write_read_tree_search_history_and_close (tests.review.test_cli_mcp_runtime_contract.ClientRuntimeContract.test_cli_session_write_read_tree_search_history_and_close) ... ok
+test_stdio_mcp_discovers_details_and_committed_data_is_visible_to_cli (tests.review.test_cli_mcp_runtime_contract.ClientRuntimeContract.test_stdio_mcp_discovers_details_and_committed_data_is_visible_to_cli) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 3.337s
+
+OK

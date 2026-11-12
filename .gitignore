@@ -1,0 +1,13 @@
+.DS_Store
+.brain/
+.env
+.env.*
+.venv/
+.tmp/
+.test-tmp/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+*.sqlite3*

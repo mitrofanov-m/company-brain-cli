@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools==84.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "company-brain-cli"
+version = "0.1.0"
+description = "Standalone command-line client for the Company Brain HTTP API"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+brain = "brain_cli.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["brain_cli*"]

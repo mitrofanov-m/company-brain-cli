@@ -1,0 +1,10 @@
+test_cli_explicit_workspace_does_not_write_through_another_workspaces_saved_session (tests.review.test_standalone_cli_contract.StandaloneCLIContract.test_cli_explicit_workspace_does_not_write_through_another_workspaces_saved_session) ... ok
+test_cli_readonly_principal_cannot_mutate_or_read_foreign_session (tests.review.test_standalone_cli_contract.StandaloneCLIContract.test_cli_readonly_principal_cannot_mutate_or_read_foreign_session) ... ok
+test_cli_session_write_read_tree_search_history_and_close (tests.review.test_standalone_cli_contract.StandaloneCLIContract.test_cli_session_write_read_tree_search_history_and_close) ... ok
+test_stdio_mcp_discovers_details_and_committed_data_is_visible_to_cli (tests.review.test_standalone_cli_contract.StandaloneCLIContract.test_stdio_mcp_discovers_details_and_committed_data_is_visible_to_cli) ... ok
+test_cli_script_runs_on_server_returns_output_and_only_success_commits (tests.review.test_standalone_cli_contract.StandaloneCLISandboxContract.test_cli_script_runs_on_server_returns_output_and_only_success_commits) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.778s
+
+OK
