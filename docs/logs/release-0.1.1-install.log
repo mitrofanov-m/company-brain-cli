@@ -1,0 +1,9 @@
+Using CPython 3.14.7 interpreter at: /opt/homebrew/opt/python@3.14/bin/python3.14
+Creating virtual environment at: .tmp/release-0.1.1-venv
+Activate with: source .tmp/release-0.1.1-venv/bin/activate
+Using Python 3.14.7 environment at: .tmp/release-0.1.1-venv
+Resolved 1 package in 13ms
+Prepared 1 package in 4ms
+Installed 1 package in 24ms
+ + company-brain-cli==0.1.1 (from file:///Users/m1trm/Documents/ChatGPT/agents-brain-goal/public/company-brain-cli/dist/company_brain_cli-0.1.1-py3-none-any.whl)
+brain 0.1.1

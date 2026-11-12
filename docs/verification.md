@@ -60,3 +60,19 @@ checks. Production deployment and public CLI release remain pending because
 production SSH requires a key outside the authorized workspace. Release this
 CLI before the corresponding platform release, then record its tag/commit in
 the platform release description.
+
+## 0.1.1 release verification — 2026-11-12
+
+Repeated 17 standalone tests, lock verification and zipapp build/version/help
+checks. `uv build --offline --no-sources` built wheel and sdist with the already
+verified setuptools 84.1.0 in the checkout-local cache. No dependency or image
+was downloaded. Installed the wheel into a fresh checkout-local environment
+with uv; its command reports 0.1.1.
+
+Both the zipapp and installed wheel passed all five real API/MCP/Docker
+integration checks against the platform 0.2.2 candidate (source 6158478 plus
+the release version update). The platform's full tracked suite also passed
+513 Python tests, including exact 1 GB transfer checks, and 121 JavaScript
+tests. The earlier production access blocker was resolved before rollout.
+See `docs/logs/release-0.1.1-*.log`. Public release publication follows these
+checks and precedes the platform release.

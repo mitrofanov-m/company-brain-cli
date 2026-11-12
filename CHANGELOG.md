@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1 — 2026-11-12
+
+- Stream binary file uploads up to 1,000,000,000 bytes using `files write`.
+- Add `files download` with streaming, SHA-256 verification and atomic output
+  replacement; interrupted or invalid downloads preserve an existing file.
+- Keep stdin text writes and existing JSON API scenarios compatible.
+- Binary uploads/downloads require the Company Brain 0.2.2 API.
+
 ## 0.1.0 — 2026-11-12
 
 First standalone Company Brain CLI release.
