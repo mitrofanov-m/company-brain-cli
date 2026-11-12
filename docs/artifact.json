@@ -1,0 +1,7 @@
+{
+  "artifact": "dist/brain.pyz",
+  "sha256": "ff833c41370fd07ebd543ac86f31048c0e5e901d142fd9e9659c7befb9240c65",
+  "source_commit": "80e3da2",
+  "checked_on": "2026-11-12",
+  "real_api_and_docker_tests_passed": 5
+}

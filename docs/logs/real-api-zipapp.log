@@ -5,6 +5,6 @@ test_stdio_mcp_discovers_details_and_committed_data_is_visible_to_cli (tests.rev
 test_cli_script_runs_on_server_returns_output_and_only_success_commits (tests.review.test_standalone_cli_contract.StandaloneCLISandboxContract.test_cli_script_runs_on_server_returns_output_and_only_success_commits) ... ok
 
 ----------------------------------------------------------------------
-Ran 5 tests in 5.778s
+Ran 5 tests in 5.322s
 
 OK

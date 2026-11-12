@@ -3,6 +3,10 @@
 Tested on macOS arm64, CPython 3.14.7, with the existing uv 0.11.3.
 Other supported Python versions have not been exercised in this extraction.
 
+A clean independent clone of commit `80e3da2` passed the 14 standalone tests,
+rebuilt the zipapp, and passed all 5 real server/Docker tests using that artifact.
+The tested artifact checksum is recorded in [artifact.json](artifact.json).
+
 - 14 standalone HTTP/CLI tests passed: configuration permissions and boundaries,
   login, settings precedence, guest reads, workspace/session isolation, CRUD,
   history, tool discovery/calls, remote execution status, errors and redirects.

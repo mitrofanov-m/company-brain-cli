@@ -1,4 +1,5 @@
-Resolved 1 package in 20ms
+Using CPython 3.14.7 interpreter at: /opt/homebrew/opt/python@3.14/bin/python3.14
+Resolved 1 package in 7ms
 test_api_error_does_not_print_key_or_traceback (test_cli.ClientTests.test_api_error_does_not_print_key_or_traceback) ... ok
 test_api_origin_validation_and_segment_encoding (test_cli.ClientTests.test_api_origin_validation_and_segment_encoding) ... ok
 test_config_cannot_escape_working_directory_or_follow_file_symlink (test_cli.ClientTests.test_config_cannot_escape_working_directory_or_follow_file_symlink) ... ok
@@ -15,7 +16,7 @@ test_workspace_list_tree_binary_read_search_and_history (test_cli.ClientTests.te
 test_workspace_mismatch_rejected_before_write (test_cli.ClientTests.test_workspace_mismatch_rejected_before_write) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 2.939s
+Ran 14 tests in 2.932s
 
 OK
 Built dist/brain.pyz
